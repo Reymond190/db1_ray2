@@ -13,7 +13,7 @@ class Alert(models.Model):
     time = models.CharField(null=True, max_length=100)
 
 class ray(models.Model):
-    vin = models.CharField(max_length=20, null=True)
+    vid = models.CharField(max_length=20, null=True)
     date = models.CharField(max_length=20,null=True)
     time = models.CharField(max_length=20, null=True)
     status = models.CharField(max_length=20, null=True)
@@ -33,7 +33,6 @@ class ray(models.Model):
     overspeed = models.IntegerField( null=True)
     alert = models.IntegerField( null=True)
     noidle = models.IntegerField(null=True)
-    AssetCode = models.CharField(max_length=20, null=True)
     deviceImeiNo = models.CharField(max_length=15, null=True)
     plateNumber = models.CharField(max_length=20, null=True)
     No_of_iterations = models.IntegerField(null=True)
