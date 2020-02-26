@@ -1,5 +1,6 @@
 import os
 from celery import Celery
+from one.tasks2 import exec
 from one.tasks import all2
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'db1.settings')
@@ -14,12 +15,11 @@ def see_you():
     print("See you in ten seconds!")
 
 
-app.autodiscover_tasks(see_you)
 
 
 app.conf.beat_schedule = {
     "see-you-in-ten-seconds-task": {
-        "task": "one.tasks.all2",
+        "task": "one.tasks2.exec",
         "schedule": 10.0,
     }
 

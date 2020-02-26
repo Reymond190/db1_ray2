@@ -1,5 +1,6 @@
 import requests
 import json
+from celery import shared_task
 from pandas.io.json import json_normalize
 import datetime
 from celery.schedules import crontab
@@ -26,13 +27,15 @@ from .models import Alert ,api1
 import pytz
 
 def get_api():
-    r1 = requests.get('http://13.235.62.229:8000/mixmatch/')
+    r1 = requests.get('http://13.235.62.229:8000/location/')
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)
     df1 = json_normalize(y1)
     return df1
 
+
+@shared_task
 def exec():
     a = get_api()
     print(a)
@@ -73,7 +76,7 @@ def exec():
 
                 if (df['speed'][i] > v3.maxspeed):  # check maxspeed with currentspeed
                     v3.maxspeed = df['speed'][i]
-                if (str(df['status'][i]) == 'overSpeed'):
+                if (str(df['status'][i]) == 'overspeed'):
                     v3.overspeed = v3.overspeed + 1
                     v3.alert = v3.alert + 1
 
@@ -113,7 +116,6 @@ def exec():
             v2.date = time2.date()
             ui = time2.time()
             v2.time = datetime.datetime.strptime(ui, '%H:%M:%S')
-            v2.AssetCode = df['AssetCode'][i]
             v2.deviceImeiNo = df['deviceImeiNo'][i]
             v2.plateNumber = df['plateNumber'][i]
             v2.No_of_iterations = 0
