@@ -112,6 +112,8 @@ def all2():
                 v3.stop = str(x)
                 v3.engine_current = "OFF"
 
+
+
             else:
                 print("Error")
             v3.average = round(v3.average + d11[i] / 2)
