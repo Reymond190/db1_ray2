@@ -44,21 +44,21 @@ def all2():
     print(a)
     print(a.shape[0])
     df = a
-    a1 = api1.objects.get(No="1")
+    # a1 = api1.objects.get(No="1")
     df2 = df.loc[(df["status"] == "running")]  # RUNNING VEHICLES
     df3 = df.loc[(df["status"] == "idle")]  # IDLE VEHICLES
     df4 = df.loc[(df["status"] == "stop")]  # STOP_VEHICLES
     df5 = df.loc[(df["status"] == 'inactive')]  # Inactive
-    a1.id = "1"
-    a1.Total = str(df.shape[0])
-    a1.Running = str(df2.shape[0])
-    a1.Idle = str(df3.shape[0])
-    a1.Stop = str(df4.shape[0])
-    a1.Inactive = str(df5.shape[0])
-    a1.NoData = "temperarily unavailable"
-    a1.No_of_geofence = "temperarily unavailable"
-    a1.No_of_overspeed = "temperarily unavailable"
-    a1.save()  # hello
+    # a1.id = "1"
+    # a1.Total = str(df.shape[0])
+    # a1.Running = str(df2.shape[0])
+    # a1.Idle = str(df3.shape[0])
+    # a1.Stop = str(df4.shape[0])
+    # a1.Inactive = str(df5.shape[0])
+    # a1.NoData = "temperarily unavailable"
+    # a1.No_of_geofence = "temperarily unavailable"
+    # a1.No_of_overspeed = "temperarily unavailable"
+    # a1.save()  # hello
 
     for i in range(df.shape[0]):
         v2 = ray()
