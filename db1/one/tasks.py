@@ -39,7 +39,7 @@ def get_api():
 
 
 @task
-def all2(request):
+def all2():
     a = get_api()
     print(a)
     print(a.shape[0])
