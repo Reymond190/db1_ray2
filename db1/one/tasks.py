@@ -26,6 +26,7 @@ from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
 from .models import Alert, api1
 
+
 import pytz
 
 
@@ -144,8 +145,8 @@ def all2():
             v2.inactive = 0
             v2.noidle = 0
             v2.maxstop = 0
-            v2.maxspeed = df['speed'][i]
-            v2.average = df['speed'][i]
+            v2.maxspeed = int(df['speed'][i])
+            v2.average = int(df['speed'][i])
             v2.overspeed = 0
             v2.alert = 0
             v2.direction = str(df['direction'][i])
