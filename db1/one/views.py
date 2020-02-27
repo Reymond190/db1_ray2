@@ -1,59 +1,22 @@
-# import datetime
-# import json
-# from datetime import timedelta
-#
-#
-import pytz
 
-from .models import ray
-from .serializers import GroupSerializer
 from rest_framework import viewsets, generics
 from django.shortcuts import render
-# from django.utils.termcolors import background
-# from pandas.io.json import json_normalize
-# from pkg_resources.extern import names
-# from requests.auth import HTTPBasicAuth
-# from .models import vehicle
-# import schedule
-# import time
-import datetime
-from celery.schedules import crontab
-import string
-from googlegeocoder import GoogleGeocoder
+
+# from googlegeocoder import GoogleGeocoder
 from requests.auth import HTTPBasicAuth
-from django.http import HttpResponse
+# from django.http import HttpResponse
 import json
-from .models import ray
 import requests
 from django.db.models import Q
-import time
 from datetime import timedelta
 import datetime
-import pandas as pd
 from pandas.io.json import json_normalize
-import math
 
-from celery.task import periodic_task
-from django.contrib.auth.models import User
-from django.utils.crypto import get_random_string
-
-from celery import shared_task
-from .models import Alert
-
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.views.generic import TemplateView
-from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
-from django.shortcuts import redirect
-from .forms import GenerateRandomUserForm
-from rest_framework.views import APIView
-from .tasks import random
-# from celery.task.control import inspect
 from .models import ray, api1
-from rest_framework.response import Response
-from rest_framework import status
+
 from .serializers import GroupSerializer, Serialize2
+
+
 # class UsersListView(ListView):
 #     template_name = 'users_list.html'
 #     model = User
