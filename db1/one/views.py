@@ -100,7 +100,6 @@ def all2(request):
 
     for i in range(df.shape[0]):
         v2 = ray()
-        print('status' + str([i]), df['status'][i])
         if (ray.objects.filter(vin=df['device_imei'][i])):
             v3 = ray.objects.get(vin=df['device_imei'][i])
             if (str(df['engine_status'][i]) == 'ON' and df['speed'][i] > 0):  # running time calculation

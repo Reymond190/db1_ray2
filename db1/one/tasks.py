@@ -39,7 +39,7 @@ def get_api():
 
 
 @task
-def all2():
+def all2(request):
     a = get_api()
     print(a)
     print(a.shape[0])
@@ -62,7 +62,6 @@ def all2():
 
     for i in range(df.shape[0]):
         v2 = ray()
-        print('status' + str([i]), df['status'][i])
         if (ray.objects.filter(vin=df['device_imei'][i])):
             v3 = ray.objects.get(vin=df['device_imei'][i])
             if (str(df['engine_status'][i]) == 'ON' and df['speed'][i] > 0):  # running time calculation
@@ -114,11 +113,11 @@ def all2():
             tz = pytz.timezone('Asia/Kolkata')
             time2 = time2.astimezone(tz)
             v2.date = time2.date()
-            ui = str(time2.time())
-            v2.time = datetime.datetime.strptime(ui, '%H:%M:%S')
-            v2.vin = df['deviceImeiNo'][i]
-            v2.deviceImeiNo = df['deviceImeiNo'][i]
-            v2.plateNumber = df['plateNumber'][i]
+            ui = time2.time()
+            v2.time = ui.strftime("%H:%M:%S")
+            v2.vin = df['device_imei'][i]
+            v2.deviceImeiNo = df['device_imei'][i]
+            v2.plateNumber = df['Vehicle_Number'][i]
             v2.No_of_iterations = 0
             v2.startlocation = str(df['latitude'][i]) + ", " + str(df['longitude'][i])
             v2.endlocation = str(df['latitude'][i]) + ", " + str(df['longitude'][i])
