@@ -1,6 +1,9 @@
 import requests
 import json
 from celery import shared_task
+from celery.task import task
+
+
 from pandas.io.json import json_normalize
 import datetime
 from celery.schedules import crontab
@@ -35,7 +38,7 @@ def get_api():
     return df1
 
 
-@shared_task
+@task
 def all2():
     a = get_api()
     print(a)
