@@ -13,7 +13,7 @@ class Alert(models.Model):
     time = models.CharField(null=True, max_length=100)
 
 class ray(models.Model):
-    vid = models.CharField(max_length=20, null=True)
+    vin = models.CharField(max_length=20, null=True)
     date = models.CharField(max_length=20,null=True)
     time = models.CharField(max_length=20, null=True)
     status = models.CharField(max_length=20, null=True)

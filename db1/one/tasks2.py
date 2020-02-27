@@ -117,6 +117,7 @@ def exec():
             v2.date = time2.date()
             ui = time2.time()
             v2.time = datetime.datetime.strptime(ui, '%H:%M:%S')
+            v2.vin = df['deviceImeiNo'][i]
             v2.deviceImeiNo = df['deviceImeiNo'][i]
             v2.plateNumber = df['plateNumber'][i]
             v2.No_of_iterations = 0
