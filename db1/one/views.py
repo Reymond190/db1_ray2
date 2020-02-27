@@ -111,13 +111,13 @@ def all2(request):
                 v3.endlocation = str(df['latitude'][i]) + "," + str(df['longitude'][i])
                 v3.engine_current = "ON"
 
-                if (df['speed'][i] > v3.maxspeed):  # check maxspeed with currentspeed
-                    v3.maxspeed = df['speed'][i]
+                if (int(df['speed'][i]) > v3.maxspeed):  # check maxspeed with currentspeed
+                    v3.maxspeed = int(df['speed'][i])
                 if (str(df['status'][i]) == 'overspeed'):
                     v3.overspeed = v3.overspeed + 1
                     v3.alert = v3.alert + 1
 
-            elif (str(df["engine_status"][i]) == "ON" and df['speed'][i] == 0):  # incase of idle time calculation
+            elif (str(df["engine_status"][i]) == "ON" and int(df['speed'][i]) == 0):  # incase of idle time calculation
                 time1 = datetime.datetime.strptime(v3.idle, '%H:%M:%S')
                 x = time1 + timedelta(seconds=10)  # changes existing running to updated time
                 x = x.time()
@@ -125,7 +125,7 @@ def all2(request):
                 v3.engine_current = "ON"
                 v3.noidle = int(v3.noidle + 1)
 
-            elif (str(df["engine_status"][i]) == "OFF" and df['speed'][i] == 0):  # stop
+            elif (str(df["engine_status"][i]) == "OFF" and int(df['speed'][i]) == 0):  # stop
                 v3.maxstop = v3.maxstop + 1
                 time1 = datetime.datetime.strptime(v3.stop, '%H:%M:%S')
                 x = time1 + timedelta(seconds=10)
@@ -136,7 +136,7 @@ def all2(request):
             else:
                 print("Error")
 
-            v3.average = round(v3.average + df['speed'][i] / 2)
+            v3.average = round(v3.average + int(df['speed'][i]) / 2)
             v3.endodometer = float(v3.endodometer + float(df['odometer'][i]))
             v3.No_of_iterations = v3.No_of_iterations + 1
             v3.distance = float(v3.distance + float(df['odometer'][i]))
@@ -180,7 +180,7 @@ def all2(request):
                 v2.stop = "00:00:00"
                 v2.idle = "00:00:10"
 
-            v2.current_speed = df['speed'][i]
+            v2.current_speed = int(df['speed'][i])
             v2.inactive = 0
             v2.noidle = 0
             v2.maxstop = 0
