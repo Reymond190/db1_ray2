@@ -154,8 +154,8 @@ def all2(request):
             v2.date = time2.date()
             ui = time2.time()
             v2.time = ui.strftime("%H:%M:%S")
-            v2.vin = df['deviceImeiNo'][i]
-            v2.deviceImeiNo = df['deviceImeiNo'][i]
+            v2.vin = df['device_imei'][i]
+            v2.deviceImeiNo = df['device_imei'][i]
             v2.plateNumber = df['plateNumber'][i]
             v2.No_of_iterations = 0
             v2.startlocation = str(df['latitude'][i]) + ", " + str(df['longitude'][i])
