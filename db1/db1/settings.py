@@ -142,7 +142,7 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Dhaka'
-CELERY_IMPORTS = ("one.tasks.all2", )
+CELERY_IMPORTS = ("one.tasks", )
 
 # CELERY_BEAT_SCHEDULE = {
 # #     'random': {
