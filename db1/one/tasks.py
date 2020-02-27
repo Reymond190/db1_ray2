@@ -65,7 +65,7 @@ def all2():
         v2 = ray()
         if (ray.objects.filter(vin=df['device_imei'][i])):
             v3 = ray.objects.get(vin=df['device_imei'][i])
-            if (str(df['engine_status'][i]) == 'ON' and df['speed'][i] > 0):  # running time calculation
+            if (str(df['engine_status'][i]) == 'ON' and int(df['speed'][i]) > 0):  # running time calculation
                 time1 = v3.running
                 time1 = datetime.datetime.strptime(time1, '%H:%M:%S')
                 x = time1 + timedelta(seconds=10)
