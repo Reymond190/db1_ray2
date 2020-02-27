@@ -162,11 +162,13 @@ def all2(request):
             v2.startodometer = float(df['odometer'][i])
             v2.endodometer = float(df['odometer'][i])
             v2.distance = float(df['odometer'][i])
+
             if (str(df['status'][i]) == 'running' or str(df['status'][i]) == 'overspeed'):
                 v2.running = "00:00:10"
                 v2.stop = "00:00:00"
                 v2.engine_current = "ON"
                 v2.idle = "00:00:00"
+
             elif (str(df['status'][i]) == 'stop'):
                 v2.stop = "00:00:10"
                 v2.running = "00:00:00"
@@ -182,8 +184,8 @@ def all2(request):
             v2.inactive = 0
             v2.noidle = 0
             v2.maxstop = 0
-            v2.maxspeed = df['speed'][i]
-            v2.average = df['speed'][i]
+            v2.maxspeed = int(df['speed'][i])
+            v2.average = int(df['speed'][i])
             v2.overspeed = 0
             v2.alert = 0
             v2.direction = str(df['direction'][i])
@@ -192,6 +194,7 @@ def all2(request):
             v2.No_of_iterations = 0
             v2.save()
             print("saved")
+
     return render(request,'home.html')
 
 
