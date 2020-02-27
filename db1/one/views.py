@@ -77,7 +77,7 @@ def get_api():
 
 
 
-def all2():
+def all2(request):
     a = get_api()
     print(a)
     print(a.shape[0])
