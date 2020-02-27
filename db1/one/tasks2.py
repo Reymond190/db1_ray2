@@ -26,6 +26,7 @@ from .models import Alert ,api1
 
 import pytz
 
+
 def get_api():
     r1 = requests.get('http://13.235.62.229:8000/location/')
     x1 = r1.json()
@@ -154,5 +155,5 @@ def exec():
             v2.No_of_iterations = 0
             v2.save()
             print("saved")
-exec()
+
 
