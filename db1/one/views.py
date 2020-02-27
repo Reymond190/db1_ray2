@@ -152,8 +152,8 @@ def all2(request):
             tz = pytz.timezone('Asia/Kolkata')
             time2 = time2.astimezone(tz)
             v2.date = time2.date()
-            ui = str(time2.time())
-            v2.time = datetime.datetime.strptime(ui, '%H:%M:%S')
+            ui = time2.time()
+            v2.time = ui.strftime("%H:%M:%S")
             v2.vin = df['deviceImeiNo'][i]
             v2.deviceImeiNo = df['deviceImeiNo'][i]
             v2.plateNumber = df['plateNumber'][i]
