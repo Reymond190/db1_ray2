@@ -106,6 +106,7 @@ def all2():
             v3.direction = str(df['direction'][i])
             v3.latitude = str(df['latitude'][i])
             v3.longitude = str(df['longitude'][i])
+            print('saved')
             v3.save()
 
 
