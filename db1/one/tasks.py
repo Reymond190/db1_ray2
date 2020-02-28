@@ -42,7 +42,6 @@ def get_api():
 @task
 def all2():
     a = get_api()
-    print(a)
     print(a.shape[0])
     df = a
     # a1 = api1.objects.get(No="1")
@@ -128,10 +127,6 @@ def all2():
 
             resulttime = time4 - servertime
 
-            print('time', time)
-            print('servertime', servertime)
-            print('subracted value', a)
-
             statictime = timedelta(minutes=5)
 
             if (resulttime < statictime):
@@ -203,9 +198,6 @@ def all2():
 
             resulttime = time4 - servertime
 
-            print('time', time)
-            print('servertime', servertime)
-            print('subracted value', a)
 
             statictime = timedelta(minutes=5)
 
