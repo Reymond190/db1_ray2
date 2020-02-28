@@ -54,7 +54,6 @@ def all2():
     a1.Idle = str(df3.shape[0])
     a1.Stop = str(df4.shape[0])
     a1.Inactive = str(df5.shape[0])
-    a1.NoData = "temperarily unavailable"
     a1.No_of_geofence = "temperarily unavailable"
     a1.No_of_overspeed = "temperarily unavailable"
     a1.save()  # hello
