@@ -135,7 +135,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static-cdn", "static_root")
+
+
+STATICFILES_DIRS =[
+    os.path.join(BASE_DIR, "static"),
+]
 
 
 
@@ -157,6 +164,3 @@ CELERY_IMPORTS = ("one.tasks", )
 
 
 
-STATICFILES_DIRS =[
-    os.path.join(BASE_DIR, "static"),
-]
