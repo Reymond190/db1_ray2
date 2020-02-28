@@ -94,6 +94,7 @@ def all2():
                     v3.running = str(x)  # changes existing running to updated time
                     v3.endlocation = str(df['latitude'][i]) + "," + str(df['longitude'][i])
                     v3.engine_current = "ON"
+                    v2.current_speed = int(df['speed'][i])
                     v3.status = 'running'
 
                     if (int(df['speed'][i]) > v3.maxspeed):  # check maxspeed with currentspeed
@@ -110,6 +111,7 @@ def all2():
                     x = x.time()
                     v3.idle = str(x)
                     v3.engine_current = "ON"
+                    v2.current_speed = 0
                     v3.noidle = int(v3.noidle + 1)
                     v3.status = 'idle'
 
@@ -119,6 +121,7 @@ def all2():
                     x = time1 + timedelta(seconds=10)
                     x = x.time()
                     v3.stop = str(x)
+                    v2.current_speed = 0
                     v3.engine_current = "OFF"
                     v3.status = 'stop'
 
@@ -164,27 +167,31 @@ def all2():
                 v2.inactive = "00:00:00"
                 if (str(df['status'][i]) == 'running' or str(df['status'][i]) == 'overspeed'):
                     v2.running = "00:00:10"
+                    v2.current_speed = int(df['speed'][i])
                     v2.engine_current = "ON"
                     v2.status = 'running'
 
                 elif (str(df['status'][i]) == 'stop'):
                     v2.stop = "00:00:10"
+                    v2.current_speed = 0
                     v2.engine_current = "OFF"
                     v2.status = 'stop'
 
                 else:
                     v2.engine_current = "ON"
+                    v2.current_speed = 0
                     v2.idle = "00:00:10"
                     v2.status = 'idle'
 
             else:
+                v2.current_speed = 0
                 v2.inactive = "00:00:10"
                 v2.status = 'Inactive'
                 v2.engine_current = 'Inactive'
 
 
 
-            v2.current_speed = int(df['speed'][i])
+
 
             v2.noidle = 0
             v2.maxstop = 0
