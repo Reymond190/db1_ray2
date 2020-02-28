@@ -62,7 +62,13 @@ def all2():
     # a1.save()  # hello
 
     for i in range(df.shape[0]):
+        time2 = datetime.datetime.now()
+        tz = pytz.timezone('Asia/Kolkata')
+        time2 = time2.astimezone(tz)
+        time2 = time2.strftime("%d-%m-%Y %H:%M:%S")
+        time4 = datetime.datetime.strptime(time2, '%d-%m-%Y %H:%M:%S')
         v2 = ray()
+
         if (ray.objects.filter(vin=df['device_imei'][i])):
             v3 = ray.objects.get(vin=df['device_imei'][i])
             if (str(df['engine_status'][i]) == 'ON' and int(df['speed'][i]) > 0):  # running time calculation
@@ -73,12 +79,14 @@ def all2():
                 v3.running = str(x)  # changes existing running to updated time
                 v3.endlocation = str(df['latitude'][i]) + "," + str(df['longitude'][i])
                 v3.engine_current = "ON"
+                v3.status = 'running'
 
                 if (int(df['speed'][i]) > v3.maxspeed):  # check maxspeed with currentspeed
                     v3.maxspeed = int(df['speed'][i])
                 if (str(df['status'][i]) == 'overspeed'):
                     v3.overspeed = v3.overspeed + 1
                     v3.alert = v3.alert + 1
+                    v3.status = 'overspeed'
 
             elif (str(df["engine_status"][i]) == "ON" and int(df['speed'][i]) == 0):  # incase of idle time calculation
                 time1 = datetime.datetime.strptime(v3.idle, '%H:%M:%S')
@@ -87,6 +95,7 @@ def all2():
                 v3.idle = str(x)
                 v3.engine_current = "ON"
                 v3.noidle = int(v3.noidle + 1)
+                v3.status = 'idle'
 
             elif (str(df["engine_status"][i]) == "OFF" and int(df['speed'][i]) == 0):  # stop
                 v3.maxstop = v3.maxstop + 1
@@ -95,6 +104,7 @@ def all2():
                 x = x.time()
                 v3.stop = str(x)
                 v3.engine_current = "OFF"
+                v3.status = 'stop'
 
             else:
                 print("Error")
@@ -106,6 +116,29 @@ def all2():
             v3.direction = str(df['direction'][i])
             v3.latitude = str(df['latitude'][i])
             v3.longitude = str(df['longitude'][i])
+            #inactive calc
+
+            servertime = datetime.datetime.strptime(df['serv_date'][i], '%d-%m-%Y %H:%M:%S')
+            # time2 = datetime.datetime.now()
+            # tz = pytz.timezone('Asia/Kolkata')
+            # time2 = time2.astimezone(tz)
+            # time2 = time2.strftime("%d-%m-%Y %H:%M:%S")
+            # time = datetime.datetime.strptime(time2, '%d-%m-%Y %H:%M:%S')
+
+
+            resulttime = time4 - servertime
+
+            print('time', time)
+            print('servertime', servertime)
+            print('subracted value', a)
+
+            statictime = timedelta(minutes=5)
+
+            if (resulttime < statictime):
+                pass
+            else:
+                v3.status = 'Inactive'
+
             print('saved')
             v3.save()
 
@@ -118,6 +151,7 @@ def all2():
             ui = time2.time()
             v2.time = ui.strftime("%H:%M:%S")
             v2.vin = df['device_imei'][i]
+
             v2.deviceImeiNo = df['device_imei'][i]
             v2.plateNumber = df['Vehicle_Number'][i]
             v2.No_of_iterations = 0
@@ -138,6 +172,7 @@ def all2():
                 v2.running = "00:00:00"
                 v2.engine_current = "OFF"
                 v2.idle = "00:00:00"
+
             else:
                 v2.running = "00:00:00"
                 v2.engine_current = "ON"
