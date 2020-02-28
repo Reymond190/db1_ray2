@@ -135,7 +135,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static-cdn", "static_root")
+
 
 # CELERY_RESULT_BACKEND = 'amqp://jimmy:jimmy123@localhost/jimmy_vhost'
 CELERY_ACCEPT_CONTENT = ['json']
@@ -152,3 +155,9 @@ CELERY_IMPORTS = ("one.tasks", )
 # #     }
 # #     }
 
+
+
+
+STATICFILES_DIRS =[
+    os.path.join(BASE_DIR, "static"),
+]
