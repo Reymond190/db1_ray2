@@ -125,7 +125,7 @@ def all2():
                 else:
                     print("Error")
             else:
-                time1 = datetime.datetime.strptime(v3.idle, '%H:%M:%S')
+                time1 = datetime.datetime.strptime(v3.inactive, '%H:%M:%S')
                 x = time1 + timedelta(seconds=10)  # changes existing running to updated time
                 x = x.time()
                 v3.inactive = str(x)
@@ -164,28 +164,23 @@ def all2():
                 v2.inactive = "00:00:00"
                 if (str(df['status'][i]) == 'running' or str(df['status'][i]) == 'overspeed'):
                     v2.running = "00:00:10"
-                    v2.stop = "00:00:00"
                     v2.engine_current = "ON"
-                    v2.idle = "00:00:00"
                     v2.status = 'running'
 
                 elif (str(df['status'][i]) == 'stop'):
                     v2.stop = "00:00:10"
-                    v2.running = "00:00:00"
                     v2.engine_current = "OFF"
-                    v2.idle = "00:00:00"
                     v2.status = 'stop'
 
                 else:
-                    v2.running = "00:00:00"
                     v2.engine_current = "ON"
-                    v2.stop = "00:00:00"
                     v2.idle = "00:00:10"
                     v2.status = 'idle'
 
             else:
                 v2.inactive = "00:00:10"
                 v2.status = 'Inactive'
+                v2.engine_current = 'Inactive'
 
 
 
@@ -197,6 +192,9 @@ def all2():
             v2.average = int(df['speed'][i])
             v2.overspeed = 0
             v2.alert = 0
+            v2.stop = "00:00:00"
+            v2.running = "00:00:00"
+            v2.idle = "00:00:00"
             v2.direction = str(df['direction'][i])
             v2.latitude = str(df['latitude'][i])
             v2.longitude = str(df['longitude'][i])

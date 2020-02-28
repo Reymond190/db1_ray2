@@ -13,8 +13,8 @@ class Alert(models.Model):
     time = models.CharField(null=True, max_length=100)
 
 class ray(models.Model):
-    vin = models.CharField(max_length=20, null=True)
-    date = models.CharField(max_length=20,null=True)
+    vin = models.CharField(max_length=20, default='not found')
+    date = models.CharField(max_length=20,default='not found')
     time = models.CharField(max_length=20, null=True)
     status = models.CharField(max_length=20, null=True)
     startlocation = models.TextField(max_length=100, null=True)
