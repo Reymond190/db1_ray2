@@ -166,18 +166,21 @@ def all2():
                 v2.stop = "00:00:00"
                 v2.engine_current = "ON"
                 v2.idle = "00:00:00"
+                v2.status = 'running'
 
             elif (str(df['status'][i]) == 'stop'):
                 v2.stop = "00:00:10"
                 v2.running = "00:00:00"
                 v2.engine_current = "OFF"
                 v2.idle = "00:00:00"
+                v2.status = 'stop'
 
             else:
                 v2.running = "00:00:00"
                 v2.engine_current = "ON"
                 v2.stop = "00:00:00"
                 v2.idle = "00:00:10"
+                v2.status = 'idle'
 
             v2.current_speed = int(df['speed'][i])
             v2.inactive = 0
@@ -191,6 +194,21 @@ def all2():
             v2.latitude = str(df['latitude'][i])
             v2.longitude = str(df['longitude'][i])
             v2.No_of_iterations = 0
+            servertime = datetime.datetime.strptime(df['serv_date'][i], '%d-%m-%Y %H:%M:%S')
+
+
+            resulttime = time4 - servertime
+
+            print('time', time)
+            print('servertime', servertime)
+            print('subracted value', a)
+
+            statictime = timedelta(minutes=5)
+
+            if (resulttime < statictime):
+                pass
+            else:
+                v2.status = 'Inactive'
             v2.save()
             print("saved")
 
