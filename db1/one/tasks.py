@@ -118,24 +118,56 @@ def all2():
             #inactive calc
 
             servertime = datetime.datetime.strptime(df['serv_date'][i], '%d-%m-%Y %H:%M:%S')
-            # time2 = datetime.datetime.now()
-            # tz = pytz.timezone('Asia/Kolkata')
-            # time2 = time2.astimezone(tz)
-            # time2 = time2.strftime("%d-%m-%Y %H:%M:%S")
-            # time = datetime.datetime.strptime(time2, '%d-%m-%Y %H:%M:%S')
-
 
             resulttime = time4 - servertime
 
             statictime = timedelta(minutes=5)
 
             if (resulttime < statictime):
-                pass
+                if (str(df['engine_status'][i]) == 'ON' and int(df['speed'][i]) > 0):  # running time calculation
+                    time1 = v3.running
+                    time1 = datetime.datetime.strptime(time1, '%H:%M:%S')
+                    x = time1 + timedelta(seconds=10)
+                    x = x.time()
+                    v3.running = str(x)  # changes existing running to updated time
+                    v3.endlocation = str(df['latitude'][i]) + "," + str(df['longitude'][i])
+                    v3.engine_current = "ON"
+                    v3.status = 'running'
+
+                    if (int(df['speed'][i]) > v3.maxspeed):  # check maxspeed with currentspeed
+                        v3.maxspeed = int(df['speed'][i])
+                    if (str(df['status'][i]) == 'overspeed'):
+                        v3.overspeed = v3.overspeed + 1
+                        v3.alert = v3.alert + 1
+                        v3.status = 'overspeed'
+
+                elif (str(df["engine_status"][i]) == "ON" and int(
+                        df['speed'][i]) == 0):  # incase of idle time calculation
+                    time1 = datetime.datetime.strptime(v3.idle, '%H:%M:%S')
+                    x = time1 + timedelta(seconds=10)  # changes existing running to updated time
+                    x = x.time()
+                    v3.idle = str(x)
+                    v3.engine_current = "ON"
+                    v3.noidle = int(v3.noidle + 1)
+                    v3.status = 'idle'
+
+                elif (str(df["engine_status"][i]) == "OFF" and int(df['speed'][i]) == 0):  # stop
+                    v3.maxstop = v3.maxstop + 1
+                    time1 = datetime.datetime.strptime(v3.stop, '%H:%M:%S')
+                    x = time1 + timedelta(seconds=10)
+                    x = x.time()
+                    v3.stop = str(x)
+                    v3.engine_current = "OFF"
+                    v3.status = 'stop'
+
+                else:
+                    print("Error")
             else:
                 time1 = datetime.datetime.strptime(v3.idle, '%H:%M:%S')
                 x = time1 + timedelta(seconds=10)  # changes existing running to updated time
                 x = x.time()
                 v3.inactive = str(x)
+                v3.engine_current = "Inactive"
                 v3.status = 'Inactive'
 
             print('saved')
@@ -160,26 +192,40 @@ def all2():
             v2.endodometer = float(df['odometer'][i])
             v2.distance = float(df['odometer'][i])
 
-            if (str(df['status'][i]) == 'running' or str(df['status'][i]) == 'overspeed'):
-                v2.running = "00:00:10"
-                v2.stop = "00:00:00"
-                v2.engine_current = "ON"
-                v2.idle = "00:00:00"
-                v2.status = 'running'
+            servertime = datetime.datetime.strptime(df['serv_date'][i], '%d-%m-%Y %H:%M:%S')
 
-            elif (str(df['status'][i]) == 'stop'):
-                v2.stop = "00:00:10"
-                v2.running = "00:00:00"
-                v2.engine_current = "OFF"
-                v2.idle = "00:00:00"
-                v2.status = 'stop'
+            resulttime = time4 - servertime
+
+            statictime = timedelta(minutes=5)
+
+            if (resulttime < statictime):
+                v2.inactive = "00:00:00"
+                if (str(df['status'][i]) == 'running' or str(df['status'][i]) == 'overspeed'):
+                    v2.running = "00:00:10"
+                    v2.stop = "00:00:00"
+                    v2.engine_current = "ON"
+                    v2.idle = "00:00:00"
+                    v2.status = 'running'
+
+                elif (str(df['status'][i]) == 'stop'):
+                    v2.stop = "00:00:10"
+                    v2.running = "00:00:00"
+                    v2.engine_current = "OFF"
+                    v2.idle = "00:00:00"
+                    v2.status = 'stop'
+
+                else:
+                    v2.running = "00:00:00"
+                    v2.engine_current = "ON"
+                    v2.stop = "00:00:00"
+                    v2.idle = "00:00:10"
+                    v2.status = 'idle'
 
             else:
-                v2.running = "00:00:00"
-                v2.engine_current = "ON"
-                v2.stop = "00:00:00"
-                v2.idle = "00:00:10"
-                v2.status = 'idle'
+                v2.inactive = "00:00:10"
+                v2.status = 'Inactive'
+
+
 
             v2.current_speed = int(df['speed'][i])
 
@@ -193,19 +239,6 @@ def all2():
             v2.latitude = str(df['latitude'][i])
             v2.longitude = str(df['longitude'][i])
             v2.No_of_iterations = 0
-            servertime = datetime.datetime.strptime(df['serv_date'][i], '%d-%m-%Y %H:%M:%S')
-
-
-            resulttime = time4 - servertime
-
-
-            statictime = timedelta(minutes=5)
-
-            if (resulttime < statictime):
-                v2.inactive = "00:00:00"
-            else:
-                v2.inactive = "00:00:10"
-                v2.status = 'Inactive'
             v2.save()
             print("saved")
 
