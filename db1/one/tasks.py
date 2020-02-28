@@ -137,6 +137,10 @@ def all2():
             if (resulttime < statictime):
                 pass
             else:
+                time1 = datetime.datetime.strptime(v3.idle, '%H:%M:%S')
+                x = time1 + timedelta(seconds=10)  # changes existing running to updated time
+                x = x.time()
+                v3.inactive = str(x)
                 v3.status = 'Inactive'
 
             print('saved')
@@ -183,7 +187,7 @@ def all2():
                 v2.status = 'idle'
 
             v2.current_speed = int(df['speed'][i])
-            v2.inactive = 0
+
             v2.noidle = 0
             v2.maxstop = 0
             v2.maxspeed = int(df['speed'][i])
@@ -206,8 +210,9 @@ def all2():
             statictime = timedelta(minutes=5)
 
             if (resulttime < statictime):
-                pass
+                v2.inactive = "00:00:00"
             else:
+                v2.inactive = "00:00:10"
                 v2.status = 'Inactive'
             v2.save()
             print("saved")
