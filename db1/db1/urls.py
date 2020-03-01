@@ -34,7 +34,6 @@ urlpatterns = [
     # url(r'^$', views.UsersListView.as_view(), name='users_list'),
     # url(r'^run/$', views.fun1, name='generate'),
     path('admin/', admin.site.urls),
-    path('',views.FilterList2.as_view()),
     path('sun/',views.all2),
     path('api2/', views.ClassicList.as_view()),
     url('^path/(?P<vin>.+)/$', views.FilterList.as_view()),
