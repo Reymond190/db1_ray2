@@ -234,10 +234,10 @@ class FilterList(generics.ListAPIView):
         the user as determined by the username portion of the URL.
         """
 
-        username = self.kwargs['vin']
-        lol = self.kwargs['vin']
+        q = self.kwargs['vin']
 
-        p = ray.objects.filter(Q(vin=username)|Q(plateNumber=lol))
+
+        p = ray.objects.filter(Q(vin__icontains=q)|Q(plateNumber__icontains=q)|Q(status__icontains=q)|Q(engine_current__icontains=q))
 
         return p
 

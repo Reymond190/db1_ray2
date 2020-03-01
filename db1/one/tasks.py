@@ -188,9 +188,6 @@ def all2():
                 v2.engine_current = 'Inactive'
 
 
-
-
-
             v2.noidle = 0
             v2.maxstop = 0
             v2.maxspeed = int(df['speed'][i])
@@ -208,3 +205,6 @@ def all2():
             print("saved")
 
 
+
+# @task
+# def clean_store():

@@ -18,8 +18,6 @@ class ray(models.Model):
     time = models.CharField(max_length=20, null=True)
     status = models.CharField(max_length=20, null=True)
     startlocation = models.TextField(max_length=100, null=True)
-    calc_start = models.CharField(max_length=20, null=True)
-    calc_end = models.CharField(max_length=20, null=True)
     startodometer = models.FloatField(max_length=20, null=True)
     running = models.CharField(max_length=20, null=True)
     idle = models.CharField(max_length=50, null=True)
@@ -38,10 +36,36 @@ class ray(models.Model):
     deviceImeiNo = models.CharField(max_length=15, null=True)
     plateNumber = models.CharField(max_length=20, null=True)
     No_of_iterations = models.IntegerField(null=True)
-    latitude = models.CharField(max_length=20, null=True)
-    longitude = models.CharField(max_length=20, null=True)
+    lat = models.CharField(max_length=20, null=True)
+    lng = models.CharField(max_length=20, null=True)
     direction = models.CharField(max_length=20, null=True)
     engine_current = models.CharField(max_length=20, null=True)
+
+
+# class monthly_data(models.Model):
+#     vin
+#     date
+#     time
+#     status
+#     calc_start
+#     calc_end
+#     startodometer
+#     running
+#     idle
+#     stop
+#     inactive
+#     endodometer
+#     endlocation
+#     distance
+#     average
+#     maxstop
+#     maxspeed
+#     overspeed
+#     alert
+#     noidle
+#     deviceImeiNo
+#     plateNumber
+
 
 
 class api1(models.Model):
