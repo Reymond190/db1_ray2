@@ -31,7 +31,7 @@ import pytz
 
 
 def get_api():
-    r1 = requests.get('http://13.235.62.229:8000/location/')
+    r1 = requests.get('http://13.235.62.229/location/')
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)
