@@ -76,7 +76,6 @@ class api1(models.Model):
     Idle = models.CharField(max_length=20, null=True)
     Stop = models.CharField(max_length=20, null=True)
     Inactive = models.CharField(max_length=20, null=True)
-    NoData = models.CharField(max_length=20, null=True)
     vin = models.CharField(max_length=20, null=True)
     No_of_overspeed = models.CharField(max_length=20, null=True)
     No_of_geofence = models.CharField(max_length=20, null=True)
