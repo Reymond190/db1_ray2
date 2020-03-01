@@ -70,7 +70,6 @@ class ray(models.Model):
 
 
 class api1(models.Model):
-    No = models.CharField(max_length=20, null=True)
     Total = models.CharField(max_length=20, null=True)
     Running = models.CharField(max_length=20, null=True)
     Idle = models.CharField(max_length=20, null=True)
