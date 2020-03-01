@@ -76,8 +76,8 @@ def get_api():
     return df1
 
 
-@task
-def all2():
+
+def all2(request):
     a = get_api()
     print(a.shape[0])
     df = a
