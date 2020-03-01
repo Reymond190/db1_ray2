@@ -36,8 +36,8 @@ class ray(models.Model):
     deviceImeiNo = models.CharField(max_length=15, null=True)
     plateNumber = models.CharField(max_length=20, null=True)
     No_of_iterations = models.IntegerField(null=True)
-    lat = models.CharField(max_length=20, null=True)
-    lng = models.CharField(max_length=20, null=True)
+    latitude = models.CharField(max_length=20, null=True)
+    longitude = models.CharField(max_length=20, null=True)
     direction = models.CharField(max_length=20, null=True)
     engine_current = models.CharField(max_length=20, null=True)
 
@@ -47,6 +47,7 @@ class ray(models.Model):
 #     date
 #     time
 #     status
+
 #     calc_start
 #     calc_end
 #     startodometer
