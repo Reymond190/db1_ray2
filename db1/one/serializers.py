@@ -15,5 +15,5 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class Serialize2(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api1
-        fields = "__all__"
+        fields = ['id','Total','Running','Idle','Stop','Inactive','No_of_overspeed','No_of_geofence']
 
