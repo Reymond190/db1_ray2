@@ -44,7 +44,10 @@ def all2():
     a = get_api()
     print(a.shape[0])
     df = a
-    a1 = api1()
+    if (api1.objects.filter(id=1)):
+        a1 = api1.objects.get(id=1)
+    else:
+        a1 = api1()
     df2 = df.loc[(df["status"] == "running")]  # RUNNING VEHICLES
     df3 = df.loc[(df["status"] == "idle")]  # IDLE VEHICLES
     df4 = df.loc[(df["status"] == "stop")]  # STOP_VEHICLES
