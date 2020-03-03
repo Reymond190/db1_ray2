@@ -136,7 +136,10 @@ def all2():
                 v3.engine_current = "Inactive"
                 v3.status = 'Inactive'
 
+
             print('saved')
+
+
             v3.save()
 
 
@@ -147,10 +150,18 @@ def all2():
             v2.date = time2.date()
             ui = time2.time()
             v2.time = ui.strftime("%H:%M:%S")
-            v2.vin = df['device_imei'][i]
+            v2.vin = df['Device_Id'][i]
 
             v2.deviceImeiNo = df['device_imei'][i]
             v2.plateNumber = df['Vehicle_Number'][i]
+            v2.Driver_Name = df['Driver_Name'][i]
+            v2.Vehicle_Number = df['Driver_Name'][i]
+            v2.Vehicle_Type = df['Driver_Name'][i]
+            v2.Sim_Number = df['Driver_Name'][i]
+            v2.IMEI_Number = df['Driver_Name'][i]
+            v2.Device_Model = df['Driver_Name'][i]
+            v2.Vehicle_Licence = df['Driver_Name'][i]
+            v2.Device_Timezone = df['Driver_Name'][i]
             v2.No_of_iterations = 0
             v2.startlocation = str(df['latitude'][i]) + ", " + str(df['longitude'][i])
             v2.endlocation = str(df['latitude'][i]) + ", " + str(df['longitude'][i])
