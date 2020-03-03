@@ -35,6 +35,7 @@ urlpatterns = [
     # url(r'^run/$', views.fun1, name='generate'),
     path('admin/', admin.site.urls),
     path('sun/',views.all2),
+    path('extendapi/',views.Myfilter.as_view()),
     path('api2/', views.ClassicList.as_view()),
     url('^path/(?P<vin>.+)/$', views.FilterList.as_view()),
     path('path/', views.FilterList2.as_view()),

@@ -14,41 +14,13 @@ from pandas.io.json import json_normalize
 
 from .models import ray, api1
 
-from .serializers import GroupSerializer, Serialize2
+from .serializers import GroupSerializer, Serialize2,mySerializer
 
 
-# class UsersListView(ListView):
-#     template_name = 'users_list.html'
-#     model = User
-#
-#
-# class GenerateRandomUserView(FormView):
-#     template_name = 'generate_random_users.html'
-#     form_class = GenerateRandomUserForm
-#
-#     def form_valid(self, form):
-#         total = form.cleaned_data.get('total')
-#         random.delay(total)
-#         return redirect('users_list')
 
 
-def home(request):
-    return render(request,'home.html')
-
-
-import requests
-import json
-from celery import shared_task
-from celery.task import task
-
-
-from pandas.io.json import json_normalize
-import datetime
 from celery.schedules import crontab
-import string
-from googlegeocoder import GoogleGeocoder
-from requests.auth import HTTPBasicAuth
-from django.http import HttpResponse, request
+
 import json
 from .models import ray
 import requests
@@ -60,11 +32,13 @@ import pandas as pd
 from pandas.io.json import json_normalize
 import math
 
-from django.contrib.auth.models import User
-from django.utils.crypto import get_random_string
 from .models import Alert, api1
 
 import pytz
+
+
+def home(request):
+    return render(request,'home.html')
 
 
 def get_api():
@@ -288,6 +262,17 @@ class FilterList(generics.ListAPIView):
 
 class FilterList2(generics.ListAPIView):
     serializer_class = GroupSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        p = ray.objects.all()
+        return p
+
+class Myfilter(generics.ListAPIView):
+    serializer_class = mySerializer
 
     def get_queryset(self):
         """

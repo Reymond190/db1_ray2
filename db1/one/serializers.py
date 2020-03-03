@@ -11,6 +11,10 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     'deviceImeiNo', 'noidle', 'plateNumber', 'No_of_iterations', 'engine_current', 'current_speed','latitude',
     'longitude','direction']
 
+class mySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ray
+        fields = "__all__"
 
 class Serialize2(serializers.HyperlinkedModelSerializer):
     class Meta:
