@@ -14,7 +14,41 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class mySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ray
-        fields = "__all__"
+        fields = [
+'vin',
+'date',
+'time',
+'status',
+'startlocation',
+'startodometer',
+'running',
+'idle',
+'stop',
+'inactive',
+'endodometee',
+'endlocati',
+'distance',
+'average',
+'current_speed',
+'maxstop',
+'maxspeed',
+'overspee',
+'alert',
+'noidle',
+'deviceImeiNo',
+'plateNumber',
+'No_of_iteration',
+'latitude',
+'longitude',
+'direction',
+'engine_curren',
+'Driver_Name',
+'Device_Id',
+'Vehicle_Type',
+'Sim_Number',
+'Device_Model',
+'Vehicle_Licence_No',
+'Device_Timezone ']
 
 class Serialize2(serializers.HyperlinkedModelSerializer):
     class Meta:
