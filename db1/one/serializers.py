@@ -37,7 +37,7 @@ class mySerializer(serializers.HyperlinkedModelSerializer):
 'noidle',
 'deviceImeiNo',
 'plateNumber',
-'No_of_iteration',
+'No_of_iterations',
 'latitude',
 'longitude',
 'direction',
