@@ -32,7 +32,7 @@ class mySerializer(serializers.HyperlinkedModelSerializer):
 'current_speed',
 'maxstop',
 'maxspeed',
-'overspee',
+'overspeep',
 'alert',
 'noidle',
 'deviceImeiNo',
