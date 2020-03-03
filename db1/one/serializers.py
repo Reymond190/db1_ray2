@@ -25,8 +25,8 @@ class mySerializer(serializers.HyperlinkedModelSerializer):
 'idle',
 'stop',
 'inactive',
-'endodometee',
-'endlocati',
+'endodometer',
+'endlocation',
 'distance',
 'average',
 'current_speed',
@@ -41,14 +41,14 @@ class mySerializer(serializers.HyperlinkedModelSerializer):
 'latitude',
 'longitude',
 'direction',
-'engine_curren',
+'engine_current',
 'Driver_Name',
 'Device_Id',
 'Vehicle_Type',
 'Sim_Number',
 'Device_Model',
 'Vehicle_Licence_No',
-'Device_Timezone ']
+'Device_Timezone']
 
 class Serialize2(serializers.HyperlinkedModelSerializer):
     class Meta:
