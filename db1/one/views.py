@@ -11,6 +11,7 @@ from django.db.models import Q
 from datetime import timedelta
 import datetime
 from pandas.io.json import json_normalize
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 
 from .models import ray, api1
@@ -345,14 +346,12 @@ class Ticketupdate(generics.ListAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class TicketView(generics.ListAPIView):
+class TicketView(ListCreateAPIView):
     serializer_class = ticket_serializer
 
     def get_queryset(self):
         ticket = Tickets.objects.all()
         return ticket
-
-
 
 
     def post(self, request):

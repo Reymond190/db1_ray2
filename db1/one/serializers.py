@@ -50,6 +50,7 @@ class mySerializer(serializers.HyperlinkedModelSerializer):
 'Vehicle_Licence_No',
 'Device_Timezone']
 
+
 class Serialize2(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api1
@@ -57,7 +58,7 @@ class Serialize2(serializers.HyperlinkedModelSerializer):
 
 
 
-class ticket_serializer(serializers.HyperlinkedModelSerializer):
+class ticket_serializer(serializers.ModelSerializer):
     class Meta:
         model = Tickets
         fields = ['id',

@@ -88,15 +88,10 @@ class api1(models.Model):
 
 
 class Tickets(models.Model):
-    CHOICES_1 = (
-        ('LOW','LOW'),
-        ('MEDIUM','MEDIUM'),
-        ('HIGH','HIGH'),
-    )
 
-    no = models.CharField(max_length=50,null=True)
+    no = models.CharField(max_length=50,default="none")
     Ticket_Name = models.CharField(max_length=50, default="default name")
-    priority = models.CharField(max_length=100,choices= CHOICES_1 ,null=True)
+    priority = models.CharField(max_length=100,default="LOW",null=True)
     status = models.CharField(max_length=100,default="uncleared")
-    Description = models.TextField(max_length=80, null=True)
+    Description = models.CharField(max_length=80, null=True)
     time = models.CharField(max_length=80,null=True)
