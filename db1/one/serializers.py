@@ -60,7 +60,7 @@ class Serialize2(serializers.HyperlinkedModelSerializer):
 class ticket_serializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tickets
-        fields = [
+        fields = ['id',
 'no',
 'Ticket_Name',
 'priority' ,

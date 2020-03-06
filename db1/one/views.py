@@ -299,24 +299,25 @@ class ClassicList(generics.ListAPIView):
 class Ticketupdate(generics.ListAPIView):
     serializer_class = ticket_serializer
 
-    def get_queryset(self):
+    def get_queryset(self,pk):
         try:
             ticket = Tickets.objects.get(pk=self.kwargs['pk'])
         except Tickets.DoesNotExist:
-            ticket = Tickets.objects.all()
+            print('eror')
+            return Response(status=status.HTTP_404_NOT_FOUND)
         return ticket
 
-        # Create a new movie
-    def post(self, request):
-        serializer = ticket_serializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request,pk):
 
-    # Update a movie
+        movie = self.get_queryset(self.kwargs['pk'])
+        serializer = ticket_serializer(movie)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
     def put(self, request, pk):
-        Tickets = self.get_queryset(pk)
+        Tickets = self.get_queryset(self.kwargs['pk'])
         serializer = ticket_serializer(Tickets, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -325,7 +326,7 @@ class Ticketupdate(generics.ListAPIView):
 
 
     def delete(self, request, pk):
-        ticket = self.get_queryset(pk)
+        ticket = self.get_queryset(self.kwargs['pk'])
         ticket.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -336,6 +337,8 @@ class TicketView(generics.ListAPIView):
     def get_queryset(self):
         ticket = Tickets.objects.all()
         return ticket
+
+
 
 
     def post(self, request):
