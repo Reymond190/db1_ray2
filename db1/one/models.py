@@ -87,4 +87,16 @@ class api1(models.Model):
     No_of_geofence = models.CharField(max_length=20, null=True)
 
 
+class Tickets(models.Model):
+    CHOICES_1 = (
+        ('LOW','LOW'),
+        ('MEDIUM','MEDIUM'),
+        ('HIGH','HIGH'),
+    )
 
+    no = models.CharField(max_length=50,null=True)
+    Ticket_Name = models.CharField(max_length=50, default="default name")
+    priority = models.CharField(max_length=100,choices= CHOICES_1 ,null=True)
+    status = models.CharField(max_length=100,default="uncleared")
+    Description = models.TextField(max_length=80, null=True)
+    time = models.CharField(max_length=80,null=True)

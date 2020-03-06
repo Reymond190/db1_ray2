@@ -1,5 +1,5 @@
 
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from django.shortcuts import render
 
 # from googlegeocoder import GoogleGeocoder
@@ -11,10 +11,11 @@ from django.db.models import Q
 from datetime import timedelta
 import datetime
 from pandas.io.json import json_normalize
+from rest_framework.response import Response
 
 from .models import ray, api1
 
-from .serializers import GroupSerializer, Serialize2,mySerializer
+from .serializers import GroupSerializer, Serialize2,mySerializer, ticket_serializer
 
 
 
@@ -32,7 +33,7 @@ import pandas as pd
 from pandas.io.json import json_normalize
 import math
 
-from .models import Alert, api1
+from .models import Alert, api1, Tickets
 
 import pytz
 
@@ -293,3 +294,54 @@ class ClassicList(generics.ListAPIView):
         """
         p = api1.objects.all()
         return p
+
+
+class Ticketupdate(generics.ListAPIView):
+    serializer_class = ticket_serializer
+
+    def get_queryset(self):
+        try:
+            ticket = Tickets.objects.get(pk=self.kwargs['pk'])
+        except Tickets.DoesNotExist:
+            ticket = Tickets.objects.all()
+        return ticket
+
+        # Create a new movie
+    def post(self, request):
+        serializer = ticket_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Update a movie
+    def put(self, request, pk):
+        Tickets = self.get_queryset(pk)
+        serializer = ticket_serializer(Tickets, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def delete(self, request, pk):
+        ticket = self.get_queryset(pk)
+        ticket.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TicketView(generics.ListAPIView):
+    serializer_class = ticket_serializer
+
+    def get_queryset(self):
+        ticket = Tickets.objects.all()
+        return ticket
+
+
+    def post(self, request):
+        serializer = ticket_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

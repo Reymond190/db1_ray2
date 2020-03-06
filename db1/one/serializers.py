@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import ray , api1
+from .models import ray , api1 ,Tickets
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -54,4 +54,19 @@ class Serialize2(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api1
         fields = ['id','Total','Running','Idle','Stop','Inactive','No_of_overspeed','No_of_geofence']
+
+
+
+class ticket_serializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Tickets
+        fields = [
+'no',
+'Ticket_Name',
+'priority' ,
+'status',
+'Description' ,
+'time']
+
+
 

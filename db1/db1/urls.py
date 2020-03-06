@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import url
 from rest_framework import routers
 from one import views
@@ -39,6 +40,11 @@ urlpatterns = [
     path('api2/', views.ClassicList.as_view()),
     url('^path/(?P<vin>.+)/$', views.FilterList.as_view()),
     path('path/', views.FilterList2.as_view()),
+    path('tickets/',views.TicketView.as_view()),
+    re_path(r'^tickets/(?P<pk>[0-9]+)$', # Url to get update or delete a movie
+        views.Ticketupdate.as_view(),
+
+    ),
 
 ]
 
