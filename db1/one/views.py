@@ -56,7 +56,10 @@ def all2(request):
     a = get_api()
     print(a.shape[0])
     df = a
-    a1 = api1()
+    if (api1.objects.filter(id=1)):
+        a1 = api1.objects.get(id=1)
+    else:
+        a1 = api1()
     df2 = df.loc[(df["status"] == "running")]  # RUNNING VEHICLES
     df3 = df.loc[(df["status"] == "idle")]  # IDLE VEHICLES
     df4 = df.loc[(df["status"] == "stop")]  # STOP_VEHICLES
@@ -145,7 +148,10 @@ def all2(request):
                 v3.engine_current = "Inactive"
                 v3.status = 'Inactive'
 
+
             print('saved')
+
+
             v3.save()
 
 
@@ -156,10 +162,18 @@ def all2(request):
             v2.date = time2.date()
             ui = time2.time()
             v2.time = ui.strftime("%H:%M:%S")
-            v2.vin = df['device_imei'][i]
+            v2.vin = df['Device_Id'][i]
 
             v2.deviceImeiNo = df['device_imei'][i]
             v2.plateNumber = df['Vehicle_Number'][i]
+            v2.Driver_Name = df['Driver_Name'][i]
+            v2.Vehicle_Number = df['Driver_Name'][i]
+            v2.Vehicle_Type = df['Driver_Name'][i]
+            v2.Sim_Number = df['Driver_Name'][i]
+            v2.IMEI_Number = df['Driver_Name'][i]
+            v2.Device_Model = df['Driver_Name'][i]
+            v2.Vehicle_Licence = df['Driver_Name'][i]
+            v2.Device_Timezone = df['Driver_Name'][i]
             v2.No_of_iterations = 0
             v2.startlocation = str(df['latitude'][i]) + ", " + str(df['longitude'][i])
             v2.endlocation = str(df['latitude'][i]) + ", " + str(df['longitude'][i])
