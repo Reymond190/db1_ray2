@@ -80,10 +80,9 @@ def all2(request):
         time2 = time2.astimezone(tz)
         time2 = time2.strftime("%d-%m-%Y %H:%M:%S")
         time4 = datetime.datetime.strptime(time2, '%d-%m-%Y %H:%M:%S')
-        v2 = ray()
 
-        if (ray.objects.filter(vin=df['device_imei'][i])):
-            v3 = ray.objects.get(vin=df['device_imei'][i])
+        if (ray.objects.filter(deviceImeiNo=df['device_imei'][i])):
+            v3 = ray.objects.get(deviceImeiNo=df['device_imei'][i])
             v3.average = round(v3.average + int(df['speed'][i]) / 2)
             v3.endodometer = float(v3.endodometer + float(df['odometer'][i]))
             v3.No_of_iterations = v3.No_of_iterations + 1
@@ -91,7 +90,7 @@ def all2(request):
             v3.direction = str(df['direction'][i])
             v3.latitude = str(df['latitude'][i])
             v3.longitude = str(df['longitude'][i])
-            #inactive calc
+            # inactive calc
 
             servertime = datetime.datetime.strptime(df['serv_date'][i], '%d-%m-%Y %H:%M:%S')
 
@@ -108,7 +107,7 @@ def all2(request):
                     v3.running = str(x)  # changes existing running to updated time
                     v3.endlocation = str(df['latitude'][i]) + "," + str(df['longitude'][i])
                     v3.engine_current = "ON"
-                    v2.current_speed = int(df['speed'][i])
+                    v3.current_speed = int(df['speed'][i])
                     v3.status = 'running'
 
                     if (int(df['speed'][i]) > v3.maxspeed):  # check maxspeed with currentspeed
@@ -125,7 +124,7 @@ def all2(request):
                     x = x.time()
                     v3.idle = str(x)
                     v3.engine_current = "ON"
-                    v2.current_speed = 0
+                    v3.current_speed = 0
                     v3.noidle = int(v3.noidle + 1)
                     v3.status = 'idle'
 
@@ -135,7 +134,7 @@ def all2(request):
                     x = time1 + timedelta(seconds=10)
                     x = x.time()
                     v3.stop = str(x)
-                    v2.current_speed = 0
+                    v3.current_speed = 0
                     v3.engine_current = "OFF"
                     v3.status = 'stop'
 
@@ -149,14 +148,13 @@ def all2(request):
                 v3.engine_current = "Inactive"
                 v3.status = 'Inactive'
 
-
             print('saved')
-
 
             v3.save()
 
 
         else:
+            v2 = ray()
             time2 = datetime.datetime.now()
             tz = pytz.timezone('Asia/Kolkata')
             time2 = time2.astimezone(tz)
@@ -214,7 +212,6 @@ def all2(request):
                 v2.status = 'Inactive'
                 v2.engine_current = 'Inactive'
 
-
             v2.noidle = 0
             v2.maxstop = 0
             v2.maxspeed = int(df['speed'][i])
@@ -271,8 +268,7 @@ class FilterList(generics.ListAPIView):
 
         q = self.kwargs['vin']
 
-
-        p = ray.objects.filter(Q(vin__icontains=q)|Q(plateNumber__icontains=q)|Q(status__icontains=q)|Q(engine_current__icontains=q))
+        p = ray.objects.filter(Q(vin__icontains=q)|Q(plateNumber__icontains=q)|Q(status__icontains=q)|Q(engine_current__icontains=q)|Q(deviceImeiNo__icontains=q))
 
         return p
 
@@ -295,8 +291,24 @@ class Myfilter(generics.ListAPIView):
         This view should return a list of all the purchases for
         the user as determined by the username portion of the URL.
         """
+        q = self.kwargs['vin']
+
+        p = ray.objects.filter(Q(vin__icontains=q) | Q(plateNumber__icontains=q) | Q(status__icontains=q) | Q(
+            engine_current__icontains=q) | Q(deviceImeiNo__icontains=q))
+
+        return p
+
+class Myfilter2(generics.ListAPIView):
+    serializer_class = mySerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
         p = ray.objects.all()
         return p
+
 
 
 class ClassicList(generics.ListAPIView):
@@ -318,7 +330,7 @@ class Ticketupdate(generics.ListAPIView):
         try:
             ticket = Tickets.objects.get(pk=self.kwargs['pk'])
         except Tickets.DoesNotExist:
-            print('eror')
+            print('error')
             return Response(status=status.HTTP_404_NOT_FOUND)
         return ticket
 

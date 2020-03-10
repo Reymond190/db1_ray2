@@ -67,10 +67,10 @@ def all2():
         time2 = time2.astimezone(tz)
         time2 = time2.strftime("%d-%m-%Y %H:%M:%S")
         time4 = datetime.datetime.strptime(time2, '%d-%m-%Y %H:%M:%S')
-        v2 = ray()
 
-        if (ray.objects.filter(vin=df['device_imei'][i])):
-            v3 = ray.objects.get(vin=df['device_imei'][i])
+
+        if (ray.objects.filter(deviceImeiNo=df['device_imei'][i])):
+            v3 = ray.objects.get(deviceImeiNo=df['device_imei'][i])
             v3.average = round(v3.average + int(df['speed'][i]) / 2)
             v3.endodometer = float(v3.endodometer + float(df['odometer'][i]))
             v3.No_of_iterations = v3.No_of_iterations + 1
@@ -95,7 +95,7 @@ def all2():
                     v3.running = str(x)  # changes existing running to updated time
                     v3.endlocation = str(df['latitude'][i]) + "," + str(df['longitude'][i])
                     v3.engine_current = "ON"
-                    v2.current_speed = int(df['speed'][i])
+                    v3.current_speed = int(df['speed'][i])
                     v3.status = 'running'
 
                     if (int(df['speed'][i]) > v3.maxspeed):  # check maxspeed with currentspeed
@@ -112,7 +112,7 @@ def all2():
                     x = x.time()
                     v3.idle = str(x)
                     v3.engine_current = "ON"
-                    v2.current_speed = 0
+                    v3.current_speed = 0
                     v3.noidle = int(v3.noidle + 1)
                     v3.status = 'idle'
 
@@ -122,7 +122,7 @@ def all2():
                     x = time1 + timedelta(seconds=10)
                     x = x.time()
                     v3.stop = str(x)
-                    v2.current_speed = 0
+                    v3.current_speed = 0
                     v3.engine_current = "OFF"
                     v3.status = 'stop'
 
@@ -144,6 +144,7 @@ def all2():
 
 
         else:
+            v2 = ray()
             time2 = datetime.datetime.now()
             tz = pytz.timezone('Asia/Kolkata')
             time2 = time2.astimezone(tz)
@@ -151,7 +152,6 @@ def all2():
             ui = time2.time()
             v2.time = ui.strftime("%H:%M:%S")
             v2.vin = df['Device_Id'][i]
-
             v2.deviceImeiNo = df['device_imei'][i]
             v2.plateNumber = df['Vehicle_Number'][i]
             v2.Driver_Name = df['Driver_Name'][i]
