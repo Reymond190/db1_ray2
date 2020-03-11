@@ -21,6 +21,7 @@ from django.conf.urls import url
 from rest_framework import routers
 from one import views
 from django.urls import include, path
+from rest_it.views import RegisterView, CustomLoginView
 
 
 
@@ -34,6 +35,9 @@ router.register(r'api2', views.SingleApi)
 urlpatterns = [
     # url(r'^$', views.UsersListView.as_view(), name='users_list'),
     # url(r'^run/$', views.fun1, name='generate'),
+    url(r'^rest-auth/login/', CustomLoginView.as_view()),
+    # url(r'^rest-auth/registration/', RegisterView.as_view()),
+    # url(r'^rest-auth/', include('rest_auth.urls')),
     path('admin/', admin.site.urls),
     path('sun/',views.all2),
     url('^extendapi/(?P<vin>.+)/$',views.Myfilter.as_view()),

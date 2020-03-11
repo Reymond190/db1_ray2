@@ -53,6 +53,13 @@ INSTALLED_APPS = [
     'one',
     'rest_framework',
     'corsheaders',
+    'rest_it',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 
 ]
 
