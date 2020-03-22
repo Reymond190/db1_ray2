@@ -65,8 +65,9 @@ class api1(models.Model):
 class Tickets(models.Model):
 
     no = models.CharField(max_length=50,default="none")
-    Ticket_Name = models.CharField(max_length=50, default="default name")
+    Ticket_Name = models.CharField(max_length=700, default="default name")
     priority = models.CharField(max_length=100,default="LOW",null=True)
     status = models.CharField(max_length=100,default="uncleared")
-    Description = models.CharField(max_length=80, null=True)
+    Description = models.CharField(max_length=9000, null=True)
+    Reply = models.CharField(max_length=9000, null=True)
     time = models.CharField(max_length=80,null=True)
