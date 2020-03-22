@@ -71,10 +71,10 @@ def all2():
 
         if (ray.objects.filter(deviceImeiNo=df['device_imei'][i])):
             v3 = ray.objects.get(deviceImeiNo=df['device_imei'][i])
-            v3.average = round(v3.average + int(df['speed'][i]) / 2)
-            v3.endodometer = float(v3.endodometer + float(df['odometer'][i]))
+
+
             v3.No_of_iterations = v3.No_of_iterations + 1
-            v3.distance = float(v3.distance + float(df['odometer'][i]))
+
             v3.direction = str(df['direction'][i])
             v3.latitude = str(df['latitude'][i])
             v3.longitude = str(df['longitude'][i])
@@ -84,7 +84,7 @@ def all2():
 
             resulttime = time4 - servertime
 
-            statictime = timedelta(minutes=5)
+            statictime = timedelta(seconds=40)
 
             if (resulttime < statictime):
                 if (str(df['engine_status'][i]) == 'ON' and int(df['speed'][i]) > 0):  # running time calculation
@@ -94,7 +94,10 @@ def all2():
                     x = x.time()
                     v3.running = str(x)  # changes existing running to updated time
                     v3.endlocation = str(df['latitude'][i]) + "," + str(df['longitude'][i])
+                    v3.distance = round(float(v3.distance + float(df['odometer'][i])),2)
+                    v3.endodometer = round(float(v3.endodometer + float(df['odometer'][i])))
                     v3.engine_current = "ON"
+                    v3.average = round(v3.average + int(df['speed'][i]) / 2)
                     v3.current_speed = int(df['speed'][i])
                     v3.status = 'running'
 
@@ -135,8 +138,6 @@ def all2():
                 v3.inactive = str(x)
                 v3.engine_current = "Inactive"
                 v3.status = 'Inactive'
-
-
             print('saved')
 
 
@@ -173,7 +174,7 @@ def all2():
 
             resulttime = time4 - servertime
 
-            statictime = timedelta(minutes=5)
+            statictime = timedelta(seconds=40)
 
             if (resulttime < statictime):
                 v2.inactive = "00:00:00"

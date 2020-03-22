@@ -40,39 +40,14 @@ class ray(models.Model):
     longitude = models.CharField(max_length=20, null=True)
     direction = models.CharField(max_length=20, null=True)
     engine_current = models.CharField(max_length=20, null=True)
-    Driver_Name = models.CharField(max_length=200, default='not yet created')
+    Name = models.CharField(max_length=200, default='not yet created')
+    Phone_number = models.CharField(max_length=200,default='not yet created')
     Device_Id = models.CharField(max_length=100, default='not yet created')
     Vehicle_Type = models.CharField(max_length=20, default='not yet created')
     Sim_Number = models.CharField(max_length=20, default='not yet created')
     Device_Model = models.CharField(max_length=20, default='not yet created')
     Vehicle_Licence_No = models.CharField(max_length=10, default='not yet created')
     Device_Timezone = models.CharField(max_length=10, default='not yet created')
-
-
-# class monthly_data(models.Model):
-#     vin
-#     date
-#     time
-#     status
-
-#     calc_start
-#     calc_end
-#     startodometer
-#     running
-#     idle
-#     stop
-#     inactive
-#     endodometer
-#     endlocation
-#     distance
-#     average
-#     maxstop
-#     maxspeed
-#     overspeed
-#     alert
-#     noidle
-#     deviceImeiNo
-#     plateNumber
 
 
 

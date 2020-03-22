@@ -61,18 +61,37 @@ def all2(request):
         a1 = api1.objects.get(id=1)
     else:
         a1 = api1()
-    df2 = df.loc[(df["status"] == "running")]  # RUNNING VEHICLES
-    df3 = df.loc[(df["status"] == "idle")]  # IDLE VEHICLES
-    df4 = df.loc[(df["status"] == "stop")]  # STOP_VEHICLES
-    df5 = df.loc[(df["status"] == 'inactive')]  # Inactive
-    a1.Total = str(df.shape[0])
-    a1.Running = str(df2.shape[0])
-    a1.Idle = str(df3.shape[0])
-    a1.Stop = str(df4.shape[0])
-    a1.Inactive = str(df5.shape[0])
-    a1.No_of_geofence = "temperarily unavailable"
-    a1.No_of_overspeed = "temperarily unavailable"
-    a1.save()  # hello
+
+    try:
+        df1 = ray.objects.all().count()
+        df2 = ray.objects.filter(status = 'running').count()  # RUNNING VEHICLES
+        df3 = ray.objects.filter(status = 'idle').count()  # IDLE VEHICLES
+        df4 = ray.objects.filter(status = 'stop').count()  # STOP_VEHICLES
+        df5 = ray.objects.filter(status = 'Inactive').count()  # Inactive
+        a1.Total = str(df1 if df1==0 else df1+1)
+        a1.Running = str(df2 if df2==0 else df2+1)
+        a1.Idle = str(df3 if df3==0 else df3+1)
+        a1.Stop = str(df4 if df4==0 else df4+1)
+        a1.Inactive = str(df5 if df5==0 else df5+1)
+        a1.No_of_geofence = "temperarily unavailable"
+        a1.No_of_overspeed = "temperarily unavailable"
+        a1.save()  # hello
+
+    except:
+
+        if (api1.objects.filter(id=1)):
+            a1 = api1.objects.get(id=1)
+        else:
+            a1 = api1()
+        a1.Total = "temperarily unavailable"
+        a1.Running = "temperarily unavailable"
+        a1.Idle = "temperarily unavailable"
+        a1.Stop = "temperarily unavailable"
+        a1.Inactive = "temperarily unavailable"
+        a1.No_of_geofence = "temperarily unavailable"
+        a1.No_of_overspeed = "temperarily unavailable"
+        a1.save()  # hello
+
 
     for i in range(df.shape[0]):
         time2 = datetime.datetime.now()
